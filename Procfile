@@ -1,0 +1,1 @@
+tetorabot: python tetorabot.py
