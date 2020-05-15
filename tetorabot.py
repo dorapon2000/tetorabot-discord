@@ -19,6 +19,8 @@ async def on_message(message):
 
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+    elif message.content == '/wan':
+        await message.channel.send('わお～ん')
     elif re.match('^/tenki[\s　][a-zA-Z]+$', message.content):
         city = re.match('^/tenki[\s　]([a-zA-Z]+)$', message.content).group(1)
         await reply_weather(message, city)
