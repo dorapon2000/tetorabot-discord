@@ -26,6 +26,18 @@ async def on_message(message):
         await reply_weather(message, city)
 
 
+def convert_emoji(weather):
+    w = re.sub('晴れ?', chr(int('2600', 16)), weather)
+    w = re.sub('曇り?', chr(int('2601', 16)), w)
+    w = w.replace('雨', chr(int('2602', 16)))
+    w = w.replace('雷', chr(int('26A1', 16)))
+    w = w.replace('雪', chr(int('2744', 16)))
+    w = w.replace('のち', '→')
+    w = w.replace('時々', '/')
+
+    return w
+
+
 async def reply_weather(message, city):
     """Replay weather forecast
     http://weather.livedoor.com/weather_hacks/webservice
@@ -53,18 +65,15 @@ async def reply_weather(message, city):
     url = f'http://weather.livedoor.com/forecast/webservice/json/v1?city={city_code}'
     res = requests.get(url).json()
 
-    public_month = res['publicTime'][5:7]
-    public_day = res['publicTime'][8:10]
-    public_oclock = res['publicTime'][11:13]
+    city = res['location']['city']
+    today = res['forecasts'][0]['date'][5:].replace('-', '/')
+    tommorow = res['forecasts'][1]['date'][5:].replace('-', '/')
+    telop0 = convert_emoji(res['forecasts'][0]['telop'])
+    telop1 = convert_emoji(res['forecasts'][1]['telop'])
 
-    reply = f"""[天気予報]
-{res['title']} ({public_month}/{public_day} {public_oclock}時 時点)
-@ {res['link']}
-
-{res['forecasts'][0]['dateLabel']} : {res['forecasts'][0]['telop']}
-{res['forecasts'][1]['dateLabel']} : {res['forecasts'][1]['telop']}
----
-{res['copyright']['title']}
+    reply = f""">> {city}の天気
+{today} : {telop0}
+{tommorow} : {telop1}
 """
 
     await message.channel.send(reply)
