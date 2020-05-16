@@ -1,6 +1,8 @@
 import os
 import re
+import csv
 import requests
+import unicodedata
 import discord
 
 TOKEN = os.environ['DISCORD_APP_TOKEN']
@@ -21,9 +23,28 @@ async def on_message(message):
         await message.channel.send('にゃーん')
     elif message.content == '/wan':
         await message.channel.send('わお～ん')
-    elif re.match('^/tenki[\s　][a-zA-Z]+$', message.content):
-        city = re.match('^/tenki[\s　]([a-zA-Z]+)$', message.content).group(1)
-        await reply_weather(message, city)
+    elif re.match('^/tenki[\s　][^\s　]+$', message.content):
+        city = re.match('^/tenki[\s　]([^\s　]+)$', message.content).group(1)
+        if city.isalpha() or is_japanese(city):
+            await reply_weather(message, city)
+
+
+def is_japanese(string):
+    """Return true if japanese
+    https://minus9d.hatenablog.com/entry/2015/07/16/231608
+
+    Args:
+        string (str): string
+    Returns:
+        bool : true if string is japanese
+    """
+    for ch in string:
+        name = unicodedata.name(ch)
+        if "CJK UNIFIED" in name \
+                or "HIRAGANA" in name \
+                or "KATAKANA" in name:
+            return True
+    return False
 
 
 def convert_emoji(weather):
@@ -59,8 +80,15 @@ async def reply_weather(message, city):
     elif city == 'sapporo':
         city_code = '016010'
     else:
-        await message.channel.send('都市名が有効じゃないよ～ん')
-        return
+        with open('data/id_city_table.csv', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if city == row[0]:
+                    city_code = row[1]
+                    break
+            else:
+                await message.channel.send('都市名が有効じゃないよ～ん')
+                return
 
     url = f'http://weather.livedoor.com/forecast/webservice/json/v1?city={city_code}'
     res = requests.get(url).json()
