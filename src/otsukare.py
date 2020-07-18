@@ -16,3 +16,8 @@ def _isBizDay(dt):
 
 async def say(channel):
     await channel.send('今日もお仕事おつかれさま〜！')
+
+
+async def reply(message):
+    reply = f'{message.author.mention} おつかれ〜'
+    await message.channel.send(reply)

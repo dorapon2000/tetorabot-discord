@@ -24,8 +24,13 @@ async def on_message(message):
 
     if message.content == '/neko':
         await message.channel.send('にゃーん')
+
     elif message.content == '/wan':
         await message.channel.send('わお～ん')
+
+    elif message.content == '/otsukare' or message.content == '/otukare':
+        await otsukare.reply(message)
+
     elif re.match('^/tenki[\s　][^\s　]+$', message.content):
         city = re.match('^/tenki[\s　]([^\s　]+)$', message.content).group(1)
         if city.isalpha() or weather.is_japanese(city):
