@@ -1,10 +1,14 @@
 import os
 import re
+import datetime
 import discord
+from discord.ext import tasks
 
 from src import weather
+from src import otsukare
 
 TOKEN = os.environ['DISCORD_APP_TOKEN']
+CHANNEL_ID = int(os.environ['DISCORD_APP_OREROOM_ID'])
 client = discord.Client()
 
 
@@ -28,4 +32,13 @@ async def on_message(message):
             await weather.reply_weather(message, city)
 
 
+@tasks.loop(seconds=60)
+async def loop():
+    now = datetime.datetime.now()
+    if otsukare.isOtsukareTime(now):
+        channel = client.get_channel(CHANNEL_ID)
+        await otsukare.say(channel)
+
+
+loop.start()
 client.run(TOKEN)
