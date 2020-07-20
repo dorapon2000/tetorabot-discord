@@ -6,6 +6,7 @@ from discord.ext import tasks
 
 from src import weather
 from src import otsukare
+from src import thank_you
 
 TOKEN = os.environ['DISCORD_APP_TOKEN']
 CHANNEL_ID = int(os.environ['DISCORD_APP_OREROOM_ID'])
@@ -30,6 +31,10 @@ async def on_message(message):
 
     elif message.content == '/otsukare' or message.content == '/otukare':
         await otsukare.reply(message)
+
+    elif (client.user in message.mentions and 'ありがと' in message.content
+          or message.content in ['/arigatou', '/thanks', '/thankyou']):
+        await thank_you.reply(message)
 
     elif re.match('^/tenki[\s　][^\s　]+$', message.content):
         city = re.match('^/tenki[\s　]([^\s　]+)$', message.content).group(1)
