@@ -1,6 +1,7 @@
 import os
 import re
-import datetime
+from datetime import datetime
+from pytz import timezone
 import discord
 from discord.ext import tasks
 
@@ -44,7 +45,7 @@ async def on_message(message):
 
 @tasks.loop(seconds=60)
 async def loop():
-    now = datetime.datetime.now()
+    now = datetime.now(timezone('Asia/Tokyo'))
     if otsukare.isOtsukareTime(now):
         channel = client.get_channel(CHANNEL_ID)
         await otsukare.say(channel)
