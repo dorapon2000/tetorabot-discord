@@ -50,3 +50,10 @@ async def reply(message):
     otsukare = choose_line()
     reply = f'{message.author.mention} {otsukare}'
     await message.channel.send(reply)
+
+
+async def reply_to(message):
+    otsukare = choose_line()
+    mentions = ' '.join([user.mention for user in message.mentions])
+    reply = f'{mentions} {otsukare}'
+    await message.channel.send(reply)

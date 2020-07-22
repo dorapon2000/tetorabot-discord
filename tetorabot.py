@@ -30,7 +30,10 @@ async def on_message(message):
     elif message.content == '/wan':
         await message.channel.send('わお～ん')
 
-    elif message.content == '/otsukare' or message.content == '/otukare':
+    elif message.mentions and re.search('/(otsukare|otukare)$', message.content):
+        await otsukare.reply_to(message)
+
+    elif message.content in ['/otsukare', '/otukare']:
         await otsukare.reply(message)
 
     elif (client.user in message.mentions and 'ありがと' in message.content
