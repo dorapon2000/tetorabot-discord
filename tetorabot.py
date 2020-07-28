@@ -24,20 +24,20 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if message.content == '/neko':
+    if message.content in ['/neko', '/nyan']:
         await message.channel.send('にゃーん')
 
-    elif message.content == '/wan':
+    elif message.content in ['/wan', '/inu']:
         await message.channel.send('わお～ん')
 
-    elif message.mentions and re.search('/(otsukare|otukare)$', message.content):
+    elif message.mentions and re.search('/(otsukare|otukare)', message.content):
         await otsukare.reply_to(message)
 
-    elif message.content in ['/otsukare', '/otukare']:
+    elif re.search('/(otsukare|otukare)', message.content):
         await otsukare.reply(message)
 
-    elif (client.user in message.mentions and 'ありがと' in message.content
-          or message.content in ['/arigatou', '/thanks', '/thankyou']):
+    elif (client.user in message.mentions and re.search('(/(arigato|thanks|thankyou)|ありがと)', message.content)
+          or re.search('/(arigato|thanks|thankyou)', message.content)):
         await thank_you.reply(message)
 
     elif re.match('^/tenki[\s　][^\s　]+$', message.content):
