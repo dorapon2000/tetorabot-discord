@@ -49,6 +49,10 @@ async def on_message(message):
         if city.isalpha() or weather.is_japanese(city):
             await weather.reply_weather(message, city)
 
+    elif re.search('ふ[えぇ]+', message.content):
+        user_name = message.author.name
+        await message.channel.send(f'わあ！{user_name}が幼女になっちゃった！？')
+
 
 @tasks.loop(seconds=60)
 async def loop():
