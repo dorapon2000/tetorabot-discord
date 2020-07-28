@@ -5,4 +5,8 @@
 ## Feature
 - /neko : にゃーん
 - /wan : わお～ん
+- /thanks : どういたしまして
+- @someone /thanks : @someone ありがとう
+- /otsukare : @me おつかれさま
+- @someone /otsukare : @someone おつかれさま
 - /tenki [都市名] : 天気予報
