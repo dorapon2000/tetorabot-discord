@@ -9,6 +9,7 @@ from src import weather
 from src import otsukare
 from src import youre_welcome
 from src import thank_you
+from src import decorate_reply
 
 TOKEN = os.environ['DISCORD_APP_TOKEN']
 CHANNEL_ID = int(os.environ['DISCORD_APP_OREROOM_ID'])
@@ -52,6 +53,9 @@ async def on_message(message):
     elif re.search('ふ[えぇ]+', message.content):
         user_name = message.author.name
         await message.channel.send(f'わあ！{user_name}が幼女になっちゃった！？')
+
+    elif re.search('/(deco|hey)', message.content):
+        await decorate_reply.reply_to(message)
 
 
 @tasks.loop(seconds=60)
