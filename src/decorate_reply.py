@@ -38,7 +38,7 @@ async def reply_to(message):
         r = random.randint(0, 100)
         if 30 < r:
             reply += choose_emoticon()
-        if 20 < r:
+        elif 20 < r:
             reply += random.choice(mentions)
         elif 1 < r:
             reply += choose_hello()
