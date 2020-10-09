@@ -63,7 +63,7 @@ async def loop():
     now = datetime.now(timezone('Asia/Tokyo'))
     if otsukare.isOtsukareTime(now):
         channel = client.get_channel(CHANNEL_ID)
-        await otsukare.say(channel)
+        # await otsukare.say(channel)
 
 
 loop.start()
