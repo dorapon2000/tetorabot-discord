@@ -62,7 +62,7 @@ async def reply_weather(message, city):
                     city_code = row[1]
                     break
             else:
-                await message.channel.send('都市名が有効じゃないよ～ん')
+                await message.channel.send('都市名が有効じゃないよ～ん\nhttps://weather.tsukumijima.net/primary_area.xml')
                 return
 
     url = f'https://weather.tsukumijima.net/api/forecast?city={city_code}'
