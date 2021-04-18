@@ -48,7 +48,7 @@ async def reply_weather(message, city):
         city_code = '220010'
     elif city == 'nagoya':
         city_code = '230010'
-    elif city == 'toukyou':
+    elif city == 'toukyou' or city == 'tokyo':
         city_code = '130010'
     elif city == 'hakodate':
         city_code = '017010'
