@@ -32,10 +32,10 @@ async def on_message(message):
     elif message.content in ['/wan', '/inu']:
         await message.channel.send('わお～ん')
 
-    elif message.mentions and re.search('/(otsukare|otukare)', message.content):
+    elif message.mentions and re.search('/(otsukare|otukare|otsu|otu)', message.content):
         await otsukare.reply_to(message)
 
-    elif re.search('/(otsukare|otukare|taikin)|taikin', message.content):
+    elif re.search('/(otsukare|otukare|otsu|otu|taikin)|taikin', message.content):
         await otsukare.reply(message)
 
     elif (client.user in message.mentions and re.search('(/(arigato|thanks|thankyou)|ありがと)', message.content)
