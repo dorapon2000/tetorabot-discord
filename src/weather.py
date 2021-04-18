@@ -36,7 +36,7 @@ def convert_emoji(weather):
 
 async def reply_weather(message, city):
     """Replay weather forecast
-    http://weather.livedoor.com/weather_hacks/webservice
+    https://weather.tsukumijima.net/
 
     Args:
         message (discord.message): Message
@@ -65,7 +65,7 @@ async def reply_weather(message, city):
                 await message.channel.send('都市名が有効じゃないよ～ん')
                 return
 
-    url = f'http://weather.livedoor.com/forecast/webservice/json/v1?city={city_code}'
+    url = f'https://weather.tsukumijima.net/api/forecast?city={city_code}'
     res = requests.get(url).json()
 
     city = res['location']['city']
