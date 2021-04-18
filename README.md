@@ -10,6 +10,7 @@
 - /otsukare : @me おつかれさま
 - @someone /otsukare : @someone おつかれさま
 - /tenki [都市名] : 天気予報
+- /hey @someone : 豪華なメンションになる
 
 ## How to install
 
