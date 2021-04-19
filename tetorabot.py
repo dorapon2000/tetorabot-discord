@@ -50,6 +50,11 @@ async def on_message(message):
         if city.isalpha() or weather.is_japanese(city):
             await weather.reply_weather(message, city)
 
+    elif re.match('^[^\s　]+[\s　の]天気$', message.content):
+        city = re.match('^([^\s　]+)[\s　の]天気$', message.content).group(1)
+        if city.isalpha() or weather.is_japanese(city):
+            await weather.reply_weather(message, city)
+
     elif re.search('ふ[えぇ]+', message.content):
         user_name = message.author.name
         await message.channel.send(f'わあ！{user_name}が幼女になっちゃった！？')
